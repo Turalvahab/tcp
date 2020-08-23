@@ -5,14 +5,12 @@
  */
 package main;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.DataInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.ByteBuffer;
 import util.FileUtility;
 
 /**
@@ -20,10 +18,11 @@ import util.FileUtility;
  * @author User
  */
 public class TCPServer {
-        /**
+         /**
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception  {
     
        readAsByte(); 
     }
@@ -34,19 +33,20 @@ public class TCPServer {
       System.out.println("yeni soket ucun ve ya yeni musteri ucun gozleyirem...");
     Socket connection =ourFirstServerSocket.accept();
       System.out.println("urra yeni musteri geldi...");
-      ByteBuffer bf=ByteBuffer.allocate(8192);
-      BufferedInputStream inFromClient=new BufferedInputStream(connection.getInputStream());
-    while(true){
-    int b=inFromClient.read();
-    if(b==-1){
-    break;
+      
+      DataInputStream dataStream=new  DataInputStream(connection.getInputStream());
+   byte[] arr=readMessage(dataStream);
+      System.out.println("message length2="+arr.length);
+    FileUtility.writeBytes(arr,"C:/Users/User/Desktop/screen.png");
     }
-    bf.put((byte)b);
+    }
+    public static byte[]readMessage(DataInputStream din) throws Exception{
+    int msgLen=din.readInt();
+        System.out.println("message length1="+msgLen);
+    byte[]msg=new byte[msgLen];
+    din.readFully(msg);
+    return msg;
     
-    }
-   
-    //FileUtility.writeBytes(bf.array()"");
-    }
     }
 public static void readAsString() throws Exception{
 

@@ -16,12 +16,14 @@ import util.FileUtility;
  * @author User
  */
 public class TCPClient {
-    public static void main (String[]args) throws  Exception{
+  public static void main (String[]args) throws  Exception{
     Socket socket=new Socket("localhost",6789);
     OutputStream outputStream=socket.getOutputStream();
     DataOutputStream dataOutputStream=new DataOutputStream(outputStream);
-    byte[] bytes=FileUtility.readBytes("C:\\Users\\User\\Desktop\\screen.png");
-    outputStream.write(bytes);
+    
+    byte[] bytes=FileUtility.readBytes("C:/Users/User/Desktop/screen.png");
+   dataOutputStream.writeInt(bytes.length);
+    dataOutputStream.write(bytes);
     socket.close();
     }
 }

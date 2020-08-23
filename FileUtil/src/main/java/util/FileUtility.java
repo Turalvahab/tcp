@@ -5,6 +5,18 @@
  */
 package util;
 
+
+
+/**
+ *
+ * @author User
+ */
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -66,7 +78,10 @@ public class FileUtility {
             return result;
         }
     }
-
+ public static void writeBytes(byte[] data, String fileName) throws Exception {
+        Path filePath = Paths.get(fileName);
+        Files.write(filePath, data);
+    }
     public static byte[] readBytes(String fileName) throws Exception {
         File file = new File(fileName);
 
@@ -98,11 +113,7 @@ public class FileUtility {
         }
     }
 
-    public static void writeBytes(byte[] data, String fileName) throws Exception {
-        Path filePath = (Path) Paths.get(fileName);
-       
-         
-    }
+  
 
     public static byte[] readBytesNio(String fileName) throws Exception {
         Path filePath = (Path) Paths.get(fileName);
@@ -126,4 +137,7 @@ public class FileUtility {
         fos.close();
         rbc.close();
     }
+
+    
 }
+
